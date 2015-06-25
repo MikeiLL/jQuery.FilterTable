@@ -30,6 +30,7 @@
                 containerClass:    'filter-table',      // class to apply to the container
                 containerTag:      'p',                 // tag name of the container
                 hideTFootOnFilter: false,               // if true, the table's tfoot(s) will be hidden when the table is filtered
+                showAllHeaderRows: true,                // if true, table rows with class header will always show
                 highlightClass:    'alt',               // class applied to cells containing the filter term
                 inputSelector:     null,                // use the element with this selector for the filter input field instead of creating one
                 inputName:         '',                  // name of filter input field
@@ -63,6 +64,9 @@
                         table.find('tfoot').hide();
                     }
                     tbody.find('td').removeClass(settings.highlightClass).filter(':filterTableFind("'+q.replace(/(['"])/g,'\\$1')+'")').addClass(settings.highlightClass).closest('tr').show().addClass(settings.visibleClass); // highlight (class=alt) only the cells that match the query and show their rows
+                    if (settings.showAllHeaderRows) {
+                    	table.find('tr.header').show().addClass(settings.visibleClass);
+                    }
                 }
                 if (settings.callback) { // call the callback function
                     settings.callback(q, table);
